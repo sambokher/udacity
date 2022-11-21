@@ -15,10 +15,8 @@ export default function ShelfPicker ({updateBook, book, shelves}) {
     return (
         <div>
         <div className="book-shelf-changer">
-            <select onChange={handleSelection} defaultValue={book.shelf ? book.shelf : "none"}>
-                <option value="none" disabled>
-                    Move to...
-                </option>
+            <select onChange={handleSelection} defaultValue={book.shelf}>
+                { book.shelf !== 'none' ? <option value="none">Remove from Library</option> : <option value="none" disabled>Not currently in library...</option>}
                 { shelves.map((shelf) => {
                     return (
                         <option value={shelf[0]} key={shelf[0]}>
@@ -26,7 +24,7 @@ export default function ShelfPicker ({updateBook, book, shelves}) {
                         </option>
                     )
                 })}
-                { book.shelf && <option value="none">Remove</option> }
+                
             </select>
         </div>
         </div>

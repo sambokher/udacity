@@ -1,29 +1,7 @@
 import { Link } from 'react-router-dom';
 import BookShelf from '../components/BookShelf';
-import { useState, useEffect } from 'react';
-import * as BooksAPI from "../utilities/BooksAPI";
 
-export default function HomePage({shelves}) {
-    
-    const [ library, setLibrary] = useState([])
-    
-    // call to get all books in the library
-    useEffect(() => {BooksAPI.getAll().then(response => setLibrary(response))},[])
-
-    function updateBook(book, newShelf) {
-        
-        // call API
-        BooksAPI.update(book, newShelf).then(response => {console.log(response)})
-
-        // create a new library array with updated shelves
-        const newLibrary = library.map(item => {
-            // loop over the books, find the one to update, change the shelf
-            if (item.id === book.id) {return {...item, shelf: newShelf};}
-            return item;
-        });
-        setLibrary(newLibrary)
-
-    }
+export default function HomePage({shelves, library, updateBook}) {
 
     return (
     <div>
